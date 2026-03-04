@@ -14,6 +14,18 @@ pipeline {
 			}
 		}
 
+		stage('Install Dependencies') {
+			steps {
+				sh 'npm install'
+			}
+		}
+
+		stage('Run Tests using Jest package') {
+			steps {
+				sh 'npm test'
+			}
+		}
+
 		stage('Build Docker Image') {
 			steps {
 				sh 'docker build -t $IMAGE_NAME:v1'
