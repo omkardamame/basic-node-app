@@ -14,6 +14,15 @@ pipeline {
 			}
 		}
 
+		stage('Create Docker Container') {
+			agent { 
+				docker {
+					image 'node:22-alpine'
+					args '-u root:root'
+				}
+			}
+		}
+
 		stage('Install Dependencies') {
 			steps {
 				sh 'npm install'
