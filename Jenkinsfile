@@ -14,25 +14,18 @@ pipeline {
 			}
 		}
 
-		stage('Create Docker Container') {
-			agent { 
-				docker {
-					image 'node:22-alpine'
-					args '-u root:root'
-				}
-			}
-		}
+		stage('Install Dependencies & Test') {
+    			agent {
+        			docker {
+            				image 'node:22-alpine'
+            				args '-u root:root'
+        			}
+    		}
 
-		stage('Install Dependencies') {
-			steps {
-				sh 'npm install'
-			}
-		}
-
-		stage('Run Tests using Jest package') {
-			steps {
-				sh 'npm test'
-			}
+    			steps {
+        			sh 'npm install'
+        			sh 'npm test'
+    				}
 		}
 
 		stage('Build Docker Image') {
